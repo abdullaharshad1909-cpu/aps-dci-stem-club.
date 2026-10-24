@@ -1,0 +1,423 @@
+/* APS DCI DEFENCE COMPLEX STEM PORTAL - CYBER-TACTICAL & APSACS HERITAGE STYLES */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* APSACS Official Heritage Tones */
+    --aps-navy: #050d1a;
+    --aps-navy-card: rgba(8, 20, 42, 0.85);
+    --aps-emerald: #085f40;
+    --aps-emerald-glow: #00ff88;
+    --aps-gold: #d4af37;
+    --aps-gold-glow: #ffbb00;
+    --aps-crimson: #881337;
+
+    /* Cyber-Tactical Overlays */
+    --neon-cyan: #00f0ff;
+    --neon-blue: #0070f3;
+    --neon-amber: #ffaa00;
+    --neon-red: #ff003c;
+    --dark-bg: #030712;
+    --hud-border: rgba(0, 240, 255, 0.25);
+
+    /* Dynamic Theme Default (Cyber Navy / APSACS) */
+    --theme-accent: #00f0ff;
+    --theme-glow: rgba(0, 240, 255, 0.4);
+}
+
+/* Theme Shift Variables */
+body.theme-emerald {
+    --neon-cyan: #00ff88;
+    --hud-border: rgba(0, 255, 136, 0.3);
+    --theme-accent: #00ff88;
+    --theme-glow: rgba(0, 255, 136, 0.45);
+}
+body.theme-gold {
+    --neon-cyan: #d4af37;
+    --hud-border: rgba(212, 175, 55, 0.35);
+    --theme-accent: #d4af37;
+    --theme-glow: rgba(212, 175, 55, 0.45);
+}
+body.theme-crimson {
+    --neon-cyan: #ff0055;
+    --hud-border: rgba(255, 0, 85, 0.35);
+    --theme-accent: #ff0055;
+    --theme-glow: rgba(255, 0, 85, 0.45);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #02040a;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--theme-accent);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--theme-accent);
+}
+
+/* Scanline Overlay (Retro Sci-Fi CRT toggle) */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 998;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+    );
+    background-size: 100% 3px, 6px 100%;
+    opacity: 0.5;
+}
+
+/* Hex Grid Background */
+.hex-grid-bg {
+    background-color: #030712;
+    background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+                      radial-gradient(rgba(0, 240, 255, 0.04) 1px, #030712 1px);
+    background-size: 38px 38px;
+    background-position: 0 0, 19px 19px;
+}
+
+/* Tactical HUD Corner Cut Box */
+.hud-box {
+    position: relative;
+    background: var(--aps-navy-card);
+    border: 1px solid var(--hud-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    clip-path: polygon(
+        0 14px, 
+        14px 0, 
+        calc(100% - 14px) 0, 
+        100% 14px, 
+        100% calc(100% - 14px), 
+        calc(100% - 14px) 100%, 
+        14px 100%, 
+        0 calc(100% - 14px)
+    );
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hud-box::before, .hud-box::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    border-color: var(--theme-accent);
+}
+.hud-box::before {
+    top: 2px; left: 2px;
+    border-top: 2px solid var(--theme-accent);
+    border-left: 2px solid var(--theme-accent);
+}
+.hud-box::after {
+    bottom: 2px; right: 2px;
+    border-bottom: 2px solid var(--theme-accent);
+    border-right: 2px solid var(--theme-accent);
+}
+
+.hud-box:hover {
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 25px var(--theme-glow), inset 0 0 15px rgba(0, 240, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+/* Presidential Insignia Box */
+.presidential-box {
+    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    background: linear-gradient(135deg, rgba(20, 16, 8, 0.9), rgba(8, 20, 42, 0.85));
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+}
+.presidential-box:hover {
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
+    border-color: #d4af37 !important;
+}
+
+/* ========================================================
+   CUSTOM MAGNETIC CURSOR
+   ======================================================== */
+#magnetic-cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out, background 0.2s ease;
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+#magnetic-cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--neon-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                border-color 0.2s ease, 
+                background 0.2s ease;
+}
+
+/* Reticle notches */
+#magnetic-cursor-ring::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    width: 1px; height: 3px;
+    background: var(--neon-cyan);
+    transform: translateX(-50%);
+}
+#magnetic-cursor-ring::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 50%;
+    width: 1px; height: 3px;
+    background: var(--neon-cyan);
+    transform: translateX(-50%);
+}
+
+body.cursor-hover #magnetic-cursor-ring {
+    width: 52px;
+    height: 52px;
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.08);
+}
+body.cursor-hover #magnetic-cursor-dot {
+    background: #00ff88;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 14px #00ff88;
+}
+
+@media (pointer: coarse) {
+    #magnetic-cursor-dot, #magnetic-cursor-ring {
+        display: none !important;
+    }
+}
+
+/* ========================================================
+   3D FLIP CARDS FOR 16-MEMBER ROSTER
+   ======================================================== */
+.roster-card {
+    perspective: 1200px;
+    height: 440px;
+}
+
+.roster-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.roster-card.is-flipped .roster-card-inner {
+    transform: rotateY(180deg);
+}
+
+.roster-card-front,
+.roster-card-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.roster-card-front {
+    background: rgba(6, 14, 30, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+}
+
+.roster-card-back {
+    background: rgba(8, 18, 38, 0.96);
+    border: 1px solid rgba(0, 255, 136, 0.35);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+}
+
+.roster-card:hover .roster-card-front {
+    border-color: var(--theme-accent);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+}
+
+/* Active logged in user card highlight */
+.roster-card.is-active-user .roster-card-front {
+    border: 2px solid #00ff88 !important;
+    box-shadow: 0 0 35px rgba(0, 255, 136, 0.45) !important;
+}
+
+/* ========================================================
+   APS&C DCI ATOMIC ORBITAL SPIN SYSTEM
+   ======================================================== */
+.atomic-system {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+}
+
+.orbit-ring {
+    position: absolute;
+    width: 125%;
+    height: 125%;
+    border-radius: 50%;
+    pointer-events: none;
+    transform-style: preserve-3d;
+}
+
+.orbit-ring-1 {
+    border: 2px solid rgba(0, 255, 136, 0.65);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    animation: orbitSpin1 5s linear infinite;
+}
+
+.orbit-ring-2 {
+    border: 2px solid rgba(0, 240, 255, 0.65);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    animation: orbitSpin2 7s linear infinite;
+}
+
+.orbit-ring-3 {
+    border: 2px solid rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    animation: orbitSpin3 9s linear infinite;
+}
+
+.electron-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 14px 4px currentColor;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes orbitSpin1 {
+    0% { transform: rotateZ(0deg) rotateX(72deg) rotateY(0deg); }
+    100% { transform: rotateZ(0deg) rotateX(72deg) rotateY(360deg); }
+}
+
+@keyframes orbitSpin2 {
+    0% { transform: rotateZ(60deg) rotateX(72deg) rotateY(0deg); }
+    100% { transform: rotateZ(60deg) rotateX(72deg) rotateY(360deg); }
+}
+
+@keyframes orbitSpin3 {
+    0% { transform: rotateZ(-60deg) rotateX(72deg) rotateY(0deg); }
+    100% { transform: rotateZ(-60deg) rotateX(72deg) rotateY(360deg); }
+}
+
+@keyframes emeraldPulse {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5)); }
+    50% { filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.8)); }
+}
+.logo-aura {
+    animation: emeraldPulse 3s ease-in-out infinite;
+}
+
+/* ========================================================
+   FLOATING HACKER TERMINAL
+   ======================================================== */
+#floating-terminal {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 440px;
+    max-width: calc(100vw - 32px);
+    z-index: 900;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+}
+
+#floating-terminal.is-minimized {
+    transform: translateY(calc(100% - 46px));
+}
+
+#floating-terminal.is-hidden {
+    display: none;
+}
+
+/* Spark Upvote Pulse */
+@keyframes sparkBurn {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) rotate(-8deg); }
+    100% { transform: scale(1); }
+}
+.spark-active {
+    animation: sparkBurn 0.4s ease-out;
+}
+
+/* Laser sweep */
+@keyframes laserSweep {
+    0% { top: 0%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+.laser-beam {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f0ff, #fff, #00f0ff, transparent);
+    box-shadow: 0 0 12px #00f0ff;
+    animation: laserSweep 2.4s ease-in-out infinite;
+}
+
+/* Redacted classified text */
+.classified-text {
+    background: #00f0ff;
+    color: #00f0ff;
+    user-select: none;
+    padding: 0 4px;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor: help;
+}
+.classified-text:hover {
+    background: rgba(0, 240, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Toast Notifications */
+#tactical-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10000;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+#tactical-toast.toast-visible {
+    transform: translateX(0);
+}
